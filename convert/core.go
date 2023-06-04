@@ -5,6 +5,7 @@ import (
 	"errors"
 	pdf "github.com/adrg/go-wkhtmltopdf"
 	"log"
+	"os"
 	"runtime"
 )
 
@@ -37,15 +38,14 @@ func (task *PdfTask) Wait() {
 	<-task.notifyChan
 }
 
-func InitPdf() error {
-
+func InitPdf() {
 	go consumer()
-	return nil
 }
 
 func consumer() {
-	log.Printf("start consumer")
+	log.Printf("start consumer,pid=%d",os.Getpid())
 	runtime.LockOSThread()
+	log.Printf("bound thread,pid=%d",os.Getpid())
 	var err error
 	err = pdf.Init()
 	if err != nil {

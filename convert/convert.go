@@ -5,8 +5,8 @@ import (
 	"log"
 )
 
-func ConvertPdf(req *PdfRequest) *ResultML[string] {
-	log.Printf("body: %s\n", req.Body)
+func ConvertPdf(req *PdfRequest,pid int) *ResultML[string] {
+	log.Printf("pid=%d,body: %s\n", pid,req.Body)
 	task := SendPdfTask(req.Body)
 	task.Wait()
 
